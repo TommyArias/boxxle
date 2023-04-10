@@ -11,11 +11,21 @@ let arrayCopy = JSON.parse(JSON.stringify(Levels));
 let u = 0;
 let p = 0;
 let Case = 0;
+let i;
+let col;
+
+
+var soundJump = document.createElement("audio");
+soundJump.src = "saut.mp3";
+
+var soundLvl = document.createElement("audio");
+soundLvl.src = "3.mp3";
+
 
 
 function map() {
-for (let i = 0; i < Levels[niveau].length; i++) {
-    for (let col = 0; col < Levels[niveau][i].length; col++) {
+for ( i = 0; i < Levels[niveau].length; i++) {
+    for (col = 0; col < Levels[niveau][i].length; col++) {
       const cell = document.createElement('div');
       cell.classList.add('cell');
       if (Levels[niveau][i][col] === 0) {
@@ -69,6 +79,7 @@ function gagner(){
     console.log(Levels[niveau])
     console.log(arrayCopy[niveau])
     niveau++;
+    soundLvl.play();
   }
 }
 
@@ -87,6 +98,7 @@ const keys = {
     ArrowUp:{pressed:false  },
     ArrowDown:{pressed:false  },
     q:{pressed:false},
+    r:{pressed:false}
  }
 
 addEventListener('keydown',({key})=>{
@@ -95,6 +107,7 @@ addEventListener('keydown',({key})=>{
     case 'ArrowLeft':
             keys.ArrowLeft.pressed = true;
             console.log('gauche');
+            soundJump.play();
             if (Levels[niveau][u][p-1] === 0){
               if (arrayCopy[niveau][u][p] === 4){
                 Levels[niveau][u][p-1] = Levels[niveau][u][p]
@@ -109,8 +122,23 @@ addEventListener('keydown',({key})=>{
               Levels[niveau][u][p] = 0
               map();
             }else if (arrayCopy[niveau][u][p] === 4){
-              Levels[niveau][u][p-1] = Levels[niveau][u][p]
-              Levels[niveau][u][p] = 4
+              if (Levels[niveau][u][p-1] === 0){
+                  Levels[niveau][u][p-1] = Levels[niveau][u][p]
+                  Levels[niveau][u][p] = 4
+                  map();
+                }else if (Levels[niveau][u][p-1] === 1){
+                console.log('mur')
+              }else if (Levels[niveau][u][p-1] === 2){
+                if (Levels[niveau][u][p-2] === 1){
+                }else if(Levels[niveau][u][p-2] === 2){
+                }else{
+                  Levels[niveau][u][p-2] = 2;
+                  Levels[niveau][u][p-1] = 4;
+                  Levels[niveau][u][p-1] = Levels[niveau][u][p]
+                  Levels[niveau][u][p] = 4;
+                  map();
+                }
+              }
               map();
             }else if (Levels[niveau][u][p-1] === 1){
               console.log('mur')
@@ -135,14 +163,33 @@ addEventListener('keydown',({key})=>{
                 Levels[niveau][u][p] = 4
                 map();
               }else{
-                  Levels[niveau][u][p+1] = Levels[niveau][u][p]
-                  Levels[niveau][u][p] = 0}
-              map();
-              }else if(Levels[niveau][u][p+1] === 4){
                 Levels[niveau][u][p+1] = Levels[niveau][u][p]
-                Levels[niveau][u][p] = 0
-                map();
-              }else if (Levels[niveau][u][p+1] === 1){
+                Levels[niveau][u][p] = 0}
+            map();
+            }else if(Levels[niveau][u][p+1] === 4){
+              Levels[niveau][u][p+1] = Levels[niveau][u][p]
+              Levels[niveau][u][p] = 0
+              map();
+            }else if (arrayCopy[niveau][u][p] === 4){
+              if (Levels[niveau][u][p+1] === 0){
+                  Levels[niveau][u][p+1] = Levels[niveau][u][p]
+                  Levels[niveau][u][p] = 4
+                  map();
+                }else if (Levels[niveau][u][p+1] === 1){
+                console.log('mur')
+              }else if (Levels[niveau][u][p+1] === 2){
+                if (Levels[niveau][u][p+2] === 1){
+                }else if(Levels[niveau][u][p+2] === 2){
+                }else{
+                  Levels[niveau][u][p+2] = 2;
+                  Levels[niveau][u][p+1] = 4;
+                  Levels[niveau][u][p+1] = Levels[niveau][u][p]
+                  Levels[niveau][u][p] = 4;
+                  map();
+                }
+              }
+              map();
+            }else if (Levels[niveau][u][p+1] === 1){
               console.log('mur')
              }else if (Levels[niveau][u][p+1] === 2){
                 if (Levels[niveau][u][p+2] === 1){
@@ -165,14 +212,33 @@ addEventListener('keydown',({key})=>{
                 Levels[niveau][u][p] = 4
                 map();
               }else{
-                  Levels[niveau][u-1][p] = Levels[niveau][u][p]
-                  Levels[niveau][u][p] = 0}
-              map();
-              }else if(Levels[niveau][u-1][p] === 4){
                 Levels[niveau][u-1][p] = Levels[niveau][u][p]
-                Levels[niveau][u][p] = 0
-                map();
-              }else if (Levels[niveau][u-1][p] === 1){
+                Levels[niveau][u][p] = 0}
+            map();
+            }else if(Levels[niveau][u-1][p] === 4){
+              Levels[niveau][u-1][p] = Levels[niveau][u][p]
+              Levels[niveau][u][p] = 0
+              map();
+            }else if (arrayCopy[niveau][u][p] === 4){
+              if (Levels[niveau][u-1][p] === 0){
+                  Levels[niveau][u-1][p] = Levels[niveau][u][p]
+                  Levels[niveau][u][p] = 4
+                  map();
+                }else if (Levels[niveau][u-1][p] === 1){
+                console.log('mur')
+              }else if (Levels[niveau][u-1][p] === 2){
+                if (Levels[niveau][u-2][p] === 1){
+                }else if(Levels[niveau][u-2][p] === 2){
+                }else{
+                  Levels[niveau][u-2][p] = 2;
+                  Levels[niveau][u-1][p] = 4;
+                  Levels[niveau][u-1][p] = Levels[niveau][u][p]
+                  Levels[niveau][u][p] = 4;
+                  map();
+                }
+              }
+              map();
+            }else if (Levels[niveau][u-1][p] === 1){
                 console.log('mur')
                }else if (Levels[niveau][u-1][p] === 2){
                 if (Levels[niveau][u-2][p] === 1){
@@ -195,26 +261,60 @@ addEventListener('keydown',({key})=>{
             keys.ArrowDown.pressed = true;
             console.log('bas');
             if (Levels[niveau][u+1][p] === 0){
+              if (arrayCopy[niveau][u][p] === 4){
+                Levels[niveau][u+1][p] = Levels[niveau][u][p]
+                Levels[niveau][u][p] = 4
+                map();
+              }else{
+                Levels[niveau][u+1][p] = Levels[niveau][u][p]
+                Levels[niveau][u][p] = 0}
+            map();
+            }else if(Levels[niveau][u+1][p] === 4){
               Levels[niveau][u+1][p] = Levels[niveau][u][p]
               Levels[niveau][u][p] = 0
               map();
-              }else if (Levels[niveau][u+1][p] === 1){
+            }else if (arrayCopy[niveau][u][p] === 4){
+              if (Levels[niveau][u+1][p] === 0){
+                  Levels[niveau][u+1][p] = Levels[niveau][u][p]
+                  Levels[niveau][u][p] = 4
+                  map();
+                }else if (Levels[niveau][u+1][p] === 1){
+                console.log('mur')
+              }else if (Levels[niveau][u+1][p] === 2){
+                if (Levels[niveau][u+2][p] === 1){
+                }else if(Levels[niveau][u+2][p] === 2){
+                }else{
+                  Levels[niveau][u+2][p] = 2;
+                  Levels[niveau][u+1][p] = 4;
+                  Levels[niveau][u+1][p] = Levels[niveau][u][p]
+                  Levels[niveau][u][p] = 4;
+                  map();
+                }
+              }
+              map();
+            }else if (Levels[niveau][u+1][p] === 1){
                 console.log('mur')
                }else if (Levels[niveau][u+1][p] === 2){
                 if (Levels[niveau][u+2][p] === 1){
                 }else if(Levels[niveau][u+2][p] === 2){
-                }else{
-             Levels[niveau][u+2][p] = 2;
-             Levels[niveau][u+1][p] = 0;
-             Levels[niveau][u+1][p] = Levels[niveau][u][p]
-             Levels[niveau][u][p] = 0;
+                }else if (arrayCopy[niveau][u][p] === 4){
+                    Levels[niveau][u+1][p] = Levels[niveau][u][p]
+                    Levels[niveau][u][p] = 4
+                    map();
+                  }else{
+                  Levels[niveau][u+2][p] = 2;
+                  Levels[niveau][u+1][p] = 0;
+                  Levels[niveau][u+1][p] = Levels[niveau][u][p]
+                  Levels[niveau][u][p] = 0;
+                  }
              map();
                 }
-             }
+             
             break;
         case 'q':
             keys.q.pressed = true;
             niveau ++;
+            soundLvl.play();
             console.log('q');
             console.log(niveau)
             if (niveau > 4){
@@ -222,5 +322,10 @@ addEventListener('keydown',({key})=>{
              }
             map();
             break;
+        case 'r':
+          keys.r.pressed = true;
+          Levels[niveau][i][col] = arrayCopy[niveau][i][col];
+          map();
+          console.log(Levels)
          } 
  })   
