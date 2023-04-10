@@ -53,6 +53,11 @@ for ( i = 0; i < Levels[niveau].length; i++) {
         console.log(Case);
         cell.style.top = `${i * 4}vw`
         cell.style.left = `${col * 4}vw`
+      }else if (Levels[niveau][i][col] === 5) {
+        cell.classList.add('greate');
+        console.log(good);
+        cell.style.top = `${i * 4}vw`
+        cell.style.left = `${col * 4}vw`
       }
       gameboard.appendChild(cell);
     }
@@ -70,14 +75,11 @@ function gagner(){
     }
   }
   if (victoire === 0){
-    console.log('bite')
     for (let i = 0; i < Levels[niveau].length; i++) {
       for (let col = 0; col < Levels[niveau][i].length; col++) {
           Levels[niveau][i][col] = arrayCopy[niveau][i][col];
       }
     }
-    console.log(Levels[niveau])
-    console.log(arrayCopy[niveau])
     niveau++;
     soundLvl.play();
   }
@@ -157,6 +159,7 @@ addEventListener('keydown',({key})=>{
          case 'ArrowRight':
              keys.ArrowRight.pressed = true;
              console.log('droite');
+             soundJump.play();
              if (Levels[niveau][u][p+1] === 0){
               if (arrayCopy[niveau][u][p] === 4){
                 Levels[niveau][u][p+1] = Levels[niveau][u][p]
@@ -206,6 +209,7 @@ addEventListener('keydown',({key})=>{
         case 'ArrowUp':
             keys.ArrowUp.pressed = true;
             console.log('haut');
+            soundJump.play();
             if (Levels[niveau][u-1][p] === 0){
               if (arrayCopy[niveau][u][p] === 4){
                 Levels[niveau][u-1][p] = Levels[niveau][u][p]
@@ -260,6 +264,7 @@ addEventListener('keydown',({key})=>{
         case 'ArrowDown':
             keys.ArrowDown.pressed = true;
             console.log('bas');
+            soundJump.play();
             if (Levels[niveau][u+1][p] === 0){
               if (arrayCopy[niveau][u][p] === 4){
                 Levels[niveau][u+1][p] = Levels[niveau][u][p]

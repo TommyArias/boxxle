@@ -54,3 +54,11 @@ body {
     height: 4vw;
     width: 4vw;
 }
+
+.greate{
+    background-size: contain;
+    background-image: url('crate_02.png');
+    height: 4vw;
+    width: 4vw;
+}
+
